@@ -1,49 +1,66 @@
 # Haskell Todo CLI
 
-A minimal command-line **Todo list** application written in Haskell. The goal is to practice basic Haskell syntax (types, recursion, IO) while gradually adding features.
+A minimal command-line **Todo list** app written in Haskell. It practices basic Haskell (types, recursion, IO) while adding features incrementally.
 
 ## Features
 
-* Add new tasks interactively
-* View all tasks in reverse-chronological order (most recent first)
-* Planned: remove tasks by index, mark tasks as done, and file-based persistence
+- Add new tasks interactively
+- List tasks (oldest first) with 1-based indexing
+- Remove a task by its displayed index via `done N`
+- Built-in `help` command listing available actions
 
 ## Requirements
 
-* [GHC](https://www.haskell.org/ghc/) or [Stack](https://docs.haskellstack.org/en/stable/README/)
-* Tested with GHC 9.2+, but any modern version should work
+- [GHC](https://www.haskell.org/ghc/) or [Stack](https://docs.haskellstack.org/en/stable/README/)
+- Tested with GHC 9.2+, but any modern version should work
 
-## Running the app
+## Running
 
-Clone the repo then execute:
+Clone the repo then run:
 
 ```bash
 runghc todo.hs
 ```
 
-or compile first:
+Or compile first:
 
 ```bash
 ghc todo.hs -o todo && ./todo
 ```
 
-Follow the on-screen prompts to add tasks. Output will look similar to:
+## Commands
 
 ```text
-TODO app
-Enter a task to add to your todo list:
->> Buy groceries
-Task added.
-
-The list of items is:
-1 - Buy groceries
+items                  # show all tasks (oldest first)
+add - <text>           # add a new task
+done <index>           # remove the task at the given displayed index (1-based)
+help                   # show help
+quit                   # exit
 ```
+
+Example session:
+
+```text
+TODO CLI APP
+Command's Available: quit, items, help, add - <item to add>, done <item index>
+add - buy milk
+Item added.
+items
+The List of Items is:
+1-buy milk
+done 1
+Item marked as done.
+items
+The List of Items is:
+```
+
+Note on indexing: the numbers you see in the list are the indices you pass to `done`. Listing is oldest-first, so `1` refers to the oldest task.
 
 ## Roadmap / next steps
 
-- [ ] Implement `removeTask` to delete a task by its displayed number
-- [ ] Add a `done` flag and command to mark tasks as completed
-- [ ] Persist tasks to a JSON or plain-text file so they survive restarts
+- [x] Remove task by displayed number (`done N`)
+- [ ] Persist tasks to a file (JSON or plain text) so they survive restarts
+- [ ] Optional: keep a "done" flag instead of deleting, and add a `show done` filter
 - [ ] Add basic unit tests with `hspec`
 
 Contributions or suggestions are welcome if you’re following along this learning journey! 🍀
